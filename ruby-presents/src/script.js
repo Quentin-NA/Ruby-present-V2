@@ -1,7 +1,9 @@
 const API_KEY = "AIzaSyBRWvI5Sx4URj7oC5qdy2C-L7snYCd5zQ0";
-const RANGE = "data!A1:Z9999";
 const SPREADSHEET_ID = "1p2jQxopbxImai3jTx96olNqHfOy5OmCkv0pINGxQcws";
+const RANGE = "data!A1:Z9999";
 const URL = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}?key=${API_KEY}`;
+
+
 
 const form = document.getElementById("form");
 const presentsDiv = document.getElementById("presents");
@@ -10,7 +12,7 @@ let elements = [];
 
 // Récupère les données du Google Sheet
 async function fetchData() {
-  const response = await fetch(URL);
+  const response = fetch(URL);
   const data = await response.json();
   const values = data.values;
   const headers = values[0];
