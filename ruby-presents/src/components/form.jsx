@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import "../Css/form.css"
 import Axios from 'axios';
 
 const Form = () => {
@@ -7,6 +8,8 @@ const Form = () => {
   const [randomElements, setRandomElements] = useState([]);
   const [age, setAge] = useState('');
   const [budget, setBudget] = useState('');
+  const [filteredElements, setFilteredElements] = useState([]);
+//   const [showMore, setShowMore] = useState(false);
 
 
 
@@ -19,11 +22,11 @@ const Form = () => {
 
   // filtrer les cadeaux en fonction des réponses
   const filterElements = (responses) => {
-    const filteredElements = allPresents.filter(element => {
+    setFilteredElements(allPresents.filter(element => {
       const age = parseInt(responses.age);
       const budget = parseInt(responses.budget);
       return parseInt(element.age) <= age && parseInt(element.budget) <= budget;
-    });
+    })) 
     // showMoreBtn.addEventListener("click", () => {
     //   displayElements(filteredElements);
     // });
@@ -45,6 +48,13 @@ const Form = () => {
     setRandomElements(newRandomElements);
     return newRandomElements;
   }
+
+
+//   const handleClick = () => {
+//     setShowMore(!showMore);
+//   };
+  
+  
   
   // Actualisation les données du formulaire
   const handleChange = (e) => {
@@ -68,9 +78,11 @@ const Form = () => {
         // Lancement des fonctions
         const filteredElements = filterElements(responses);
         const randomElements = selectRandomElements(filteredElements);
-    
+      
         setRandomElements(randomElements);
-    };
+        // setShowMore(true);
+      };
+      
     
 
   return (
@@ -99,7 +111,7 @@ const Form = () => {
             <button type="submit">Envoyer</button>
         </form>
 
-        <div>
+        <div id="presents" className='showPresents'>
             {console.log(randomElements)} 
             {randomElements.map((present) =>
                 <a href={present.lien} key={present.id}>
@@ -108,6 +120,18 @@ const Form = () => {
                 </a>
             )}
         </div>
+
+
+        {/* <div id='showAllPresents' className={showMore ? 'active' : ''}>
+        {console.log(filteredElements)} 
+        {filteredElements.map((present) =>
+            <a href={present.lien} key={present.id}>
+            <img src={present.image} alt='imag'></img>
+            <p>{present.name}</p>
+            </a>
+        )}
+        </div> */}
+
     </>
   )
 }

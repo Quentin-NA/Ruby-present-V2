@@ -1,0 +1,113 @@
+/* .active {
+    display: none;
+} */
+
+body {
+    background-color: antiquewhite;
+    font-family: 'DynaPuff', cursive;
+  
+  }
+  
+  .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    
+    h1 {
+      font-size: 36px;
+      margin-bottom: 50px;
+    }
+  
+    #ruby {
+      border-radius: 50%;
+      width: 200px;
+      height: 200px;
+      margin-bottom: 30px;
+    }
+    
+    label {
+      display: block;
+      width: 100%;
+      margin-bottom: 10px;
+      font-size: 20px;
+      text-align: center;
+    }
+    
+    input, select, textarea {
+      width: 100%;
+      max-width: 400px;
+      padding: 10px;
+      margin-bottom: 20px;
+      font-size: 18px;
+      border-radius: 5px;
+      border: none;
+      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    textarea {
+      height: 120px;
+    }
+    
+    button {
+      padding: 10px 20px;
+      background-color: #ff6347;
+      color: #fff;
+      font-size: 20px;
+      font-weight: bold;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    button:hover {
+      background-color: #ff7f50;
+    }
+  
+  
+    #show-more {
+      height: 50px;
+      margin-top: 30px;
+    }
+  
+    form button{
+      margin: 50px 0;
+    }
+    
+      #presents {
+        border-radius: 20px;
+        /* background: rgb(131,58,180);
+        background: linear-gradient(50deg, rgba(131,58,180,1) 0%, rgba(253,29,29,0) 0%, rgba(252,176,69,0.9753151260504201) 100%); */
+        width: 600px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+      }
+  
+      #presents img {
+        width: -webkit-fill-available;
+        height: inherit;
+        object-fit: fill;
+        border-radius: 10px;
+    }
+  
+    #presents a {
+      height: 200px;
+      max-width: 175px;
+      -webkit-box-shadow: 1px 3px 14px -6px #000000; 
+      box-shadow: 1px 3px 14px -6px #000000;
+      border-radius: 10px;
+      margin-top: 20px;
+      margin-bottom: 100px;
+      text-decoration: none;
+      color: black;
+    }
+  
+    #presents a:hover{
+      scale: 1.02;
+    }
+  
