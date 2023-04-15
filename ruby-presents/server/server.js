@@ -1,11 +1,24 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
+
+app.use(cors());
+
+// Le reste de votre code ici
+
+
 
 const API_KEY = "AIzaSyBRWvI5Sx4URj7oC5qdy2C-L7snYCd5zQ0";
 const SPREADSHEET_ID = "1p2jQxopbxImai3jTx96olNqHfOy5OmCkv0pINGxQcws";
 const RANGE = "data!A1:Z9999";
 const URL = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}?key=${API_KEY}`;
 
+
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    next();
+  });
+  
 
 app.get("/", async (req, res) => {
   const fetch = await import("node-fetch");

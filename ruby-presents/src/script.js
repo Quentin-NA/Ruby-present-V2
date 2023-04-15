@@ -4,7 +4,6 @@ const RANGE = "data!A1:Z9999";
 const URL = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}?key=${API_KEY}`;
 
 
-
 const form = document.getElementById("form");
 const presentsDiv = document.getElementById("presents");
 const showMoreBtn = document.getElementById("show-more");
