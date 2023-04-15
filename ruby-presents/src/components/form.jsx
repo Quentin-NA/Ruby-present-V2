@@ -87,6 +87,7 @@ const Form = () => {
 
   return (
     <>
+        <img id="ruby" src={require("../images/logorubyFichier-4.png")} alt='logo' />
         <form className='login-form-container' onSubmit={submit}>
             <div className="inputs">
                 {console.log(allPresents)}
