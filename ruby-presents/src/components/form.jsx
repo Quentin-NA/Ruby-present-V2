@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import "../Css/form.css"
-import TypeMessage from "./TypeMessage";
+import TypeMessage from "./present";
 
 import Axios from 'axios';
 
@@ -48,48 +48,6 @@ const Form = () => {
     }, 1000);
   }, []);
 
-  // filtrer les cadeaux en fonction des réponses
-  // const filterElements = (responses) => {
-  //   setFilteredElements(allPresents.filter(element => {
-  //     const age = parseInt(responses.age);
-  //     const budget = parseInt(responses.budget);
-  //     return parseInt(element.age) <= age && parseInt(element.budget) <= budget;
-  //   })) 
-  //   // showMoreBtn.addEventListener("click", () => {
-  //   //   displayElements(filteredElements);
-  //   // });
-  //   return filteredElements;
-  // }
-
-  // Selectionner 3 cadeaux aléatoires dans la liste qui correspond aux criteres
-  // const selectRandomElements = (filteredElements) => {
-  //   if (filteredElements.length === 0) {
-  //     console.log("Pas de cadeau pour toi, nique ta race héhé");
-  //     return [];
-  //   }
-  //   const newRandomElements = [];
-  //   while (newRandomElements.length < 3 && filteredElements.length > 0) {
-  //     const randomIndex = Math.floor(Math.random() * filteredElements.length);
-  //     newRandomElements.push(filteredElements[randomIndex]);
-  //     filteredElements.splice(randomIndex, 1);
-  //   }
-  //   setRandomElements(newRandomElements);
-  //   return newRandomElements;
-  // }
-
-
-    // Récupération des valeurs des champs du formulaire
-    // const submit = async (event) => {
-    //     event.preventDefault();
-    //     // Récupération des valeurs des champs du formulaire
-    //     const responses = { age, budget };
-    //     // Lancement des fonctions
-    //     const filteredElements = filterElements(responses);
-    //     const randomElements = selectRandomElements(filteredElements);
-      
-    //     setRandomElements(randomElements);
-    //     // setShowMore(true);
-    //   };
     
     
     const chat = document.getElementById('chat');
@@ -179,16 +137,21 @@ const Form = () => {
 
 
   const adult = () => {
-    let userText = "Oui c'est une adulte";
-    let botText = "D'accord, et est-ce un membre de votre famille??";
+    let userText = "";
+    let botText = "";
     const adultButton = "adultButton";
     const familleButton = "familleButton";
     hideButton(adultButton)
     showButton(familleButton)
-
+    console.log(path)
     setAge('adulte');
     if (path === "1") {
-      setPath('1,0');
+      userText = "Oui c'est une adulte";
+      botText = "D'accord et est-ce une membre de votre famille?"
+      setPath('1,0')
+    } else {
+      userText = "Oui c'est un adulte"
+      botText = "D'accord et est-ce un membre de votre famille?"
     }
     setTimeout(() => {
       addMessage(userText, user);
@@ -200,15 +163,20 @@ const Form = () => {
   }
 
   const notAdult = () => {
-    let userText = "Non il n'est pas adulte";
-    let botText = "D'accord, et est-ce un ado?";
+    let userText = "";
+    let botText = "";
     const adultButton = "adultButton";
     const familleButton = "familleButton"
     hideButton(adultButton)
     showButton(familleButton)
     
     if (path === "1") {
-      setPath('1,1');
+      userText = "Non elle n'est pas adulte";
+      botText = "D'accord, et est-ce une ado?";
+      setPath('1');
+    } else {
+      userText = "Non il n'est pas adulte";
+      botText = "D'accord, et est-ce un ado?";
     }
     setTimeout(() => {
       addMessage(userText, user);
@@ -220,8 +188,10 @@ const Form = () => {
   }
 
   const ado = () => {
-    let userText = "Oui c'est un ado";
-    let botText = "D'accord, et est-ce un membre de votre famille?";
+    let userText = "";
+    let botText = "";
+    userText = "Oui c'est un ado";
+    botText = "D'accord, et est-ce un membre de votre famille?";
     const adoButton = "adoButton";
     const familleButton = "familleButton"
     setAge('ado');
@@ -231,6 +201,8 @@ const Form = () => {
     
     if (path === "1") {
       setPath('1,1');
+    } else {
+      setPath('1,2');
     }
     setTimeout(() => {
       addMessage(userText, user);
@@ -273,7 +245,7 @@ const Form = () => {
     // const familleButton = "familleButton"
     hideButton(familleButton)
     // showButton(familleButton)
-    
+    console.log(path)
     setPath('0');
     setGender('man');
     setTimeout(() => {
