@@ -144,12 +144,13 @@ const Form = () => {
     hideButton(adultButton)
     showButton(familleButton)
     console.log(path)
-    setAge('adulte');
+    setAge('Adulte');
     if (path === "1") {
+      setPath('1,0')
       userText = "Oui c'est une adulte";
       botText = "D'accord et est-ce une membre de votre famille?"
-      setPath('1,0')
     } else {
+      setPath('0,0')
       userText = "Oui c'est un adulte"
       botText = "D'accord et est-ce un membre de votre famille?"
     }
@@ -166,16 +167,15 @@ const Form = () => {
     let userText = "";
     let botText = "";
     const adultButton = "adultButton";
-    const familleButton = "familleButton"
+    const adoButton = "adoButton"
     hideButton(adultButton)
-    showButton(familleButton)
+    showButton(adoButton)
     
     if (path === "1") {
-      userText = "Non elle n'est pas adulte";
+      userText = "Non elle n'est pas une adulte";
       botText = "D'accord, et est-ce une ado?";
-      setPath('1');
     } else {
-      userText = "Non il n'est pas adulte";
+      userText = "Non il n'est pas un adulte";
       botText = "D'accord, et est-ce un ado?";
     }
     setTimeout(() => {
@@ -190,19 +190,21 @@ const Form = () => {
   const ado = () => {
     let userText = "";
     let botText = "";
-    userText = "Oui c'est un ado";
-    botText = "D'accord, et est-ce un membre de votre famille?";
     const adoButton = "adoButton";
     const familleButton = "familleButton"
-    setAge('ado');
+    setAge('Ado');
 
     hideButton(adoButton)
     showButton(familleButton)
     
     if (path === "1") {
       setPath('1,1');
+      userText = "Oui c'est une ado";
+      botText = "D'accord, et est-ce une membre de votre famille?";
     } else {
-      setPath('1,2');
+      setPath('0,1');
+      userText = "Oui c'est un ado";
+      botText = "D'accord, et est-ce un membre de votre famille?";
     }
     setTimeout(() => {
       addMessage(userText, user);
@@ -214,8 +216,11 @@ const Form = () => {
   }
 
   const notAdo = () => {
-    let userText = "Non c'est un enfant";
-    let botText = "D'accord, et est-ce un membre de votre famille?";
+    let userText = "";
+    let botText = "";
+
+     userText = "Non c'est un enfant";
+     botText = "D'accord, et est-ce un membre de votre famille?";
     const adoButton = "adoButton";
     const familleButton = "familleButton"
 
@@ -227,6 +232,12 @@ const Form = () => {
     
     if (path === "1") {
       setPath('1,2');
+      userText = "Non c'est une enfant";
+      botText = "D'accord, et est-ce une membre de votre famille?";
+    } else {
+      setPath("0,2")
+      userText = "Non c'est un enfant";
+      botText = "D'accord, et est-ce un membre de votre famille?";
     }
     setTimeout(() => {
       addMessage(userText, user);
@@ -239,15 +250,50 @@ const Form = () => {
 
 
   const famille = () => {
-    let userText = "Oui c'est un membre de ma famille";
-    let botText = "D'accord, et quels sont ces centres d'interets?";
+
+    let userText = "";
+    let botText = "";
     const familleButton = "familleButton";
     // const familleButton = "familleButton"
     hideButton(familleButton)
     // showButton(familleButton)
     console.log(path)
-    setPath('0');
-    setGender('man');
+    setAffection("Famille")
+
+    switch (path) {
+      case "1,0" :
+        setPath("1,0,0")
+        userText = "Oui c'est une adulte membre de ma famille";
+        botText = "D'accord, et quels sont ces centres d'interets?";
+        break;
+      case "1,1":
+        setPath("1,1,0")
+        userText = "Oui c'est une ado membre de ma famille";
+        botText = "D'accord, et quels sont ces centres d'interets?";
+        break;
+      case "1,2":
+        setPath("1,2,0")
+        userText = "Oui c'est une enfant membre de ma famille";
+        botText = "D'accord, et quels sont ces centres d'interets?";
+        break;
+      case "0,0":
+        setPath("1,0,0")
+        userText = "Oui c'est un adulte membre de ma famille";
+        botText = "D'accord, et quels sont ces centres d'interets?";
+        break;
+      case "0,1":
+        setPath("1,1,0")
+        userText = "Oui c'est un ado membre de ma famille";
+        botText = "D'accord, et quels sont ces centres d'interets?";
+        break;
+      case "0,2":
+        setPath("1,2,0")
+        userText = "Oui c'est un enfant membre de ma famille";
+        botText = "D'accord, et quels sont ces centres d'interets?";
+        break;
+      default:
+        break;
+    }
     setTimeout(() => {
       addMessage(userText, user);
     }, "500");
@@ -261,12 +307,86 @@ const Form = () => {
     let userText = "Non ce n'est pas un memmbre de ma famille";
     let botText = "D'accord, et est-ce un ami?";
     const familleButton = "familleButton"
-    // const adoButton = "adoButton";
+    const friendButton = "friendButton";
+    hideButton(familleButton);
+    showButton(friendButton);
+
+    
+    setTimeout(() => {
+      addMessage(userText, user);
+    }, "500");
+
+    setTimeout(() => {
+      addMessage(botText, bot);
+    }, "2000");
+  }
+
+  const friend = () => {
+    let userText = "";
+    let botText = "";
+    const familleButton = "familleButton";
+    // const familleButton = "familleButton"
     hideButton(familleButton)
     // showButton(familleButton)
-    
-    setPath('0');
-    setGender('man');
+    console.log(path)
+    setAffection("Friend")
+
+    switch (path) {
+      case "1,0" :
+        setPath("1,0,1")
+        userText = "Oui c'est une amie adulte";
+        botText = "D'accord, et quels sont ces centres d'interets?";
+        break;
+      case "1,1":
+        setPath("1,1,1")
+        userText = "Oui c'est une amie ado";
+        botText = "D'accord, et quels sont ces centres d'interets?";
+        break;
+      case "1,2":
+        setPath("1,2,1")
+        userText = "Oui c'est une amie enfant";
+        botText = "D'accord, et quels sont ces centres d'interets?";
+        break;
+      case "0,0":
+        setPath("1,0,1")
+        userText = "Oui c'est un ami adulte";
+        botText = "D'accord, et quels sont ces centres d'interets?";
+        break;
+      case "0,1":
+        setPath("1,1,1")
+        userText = "Oui c'est un ami ado";
+        botText = "D'accord, et quels sont ces centres d'interets?";
+        break;
+      case "0,2":
+        setPath("1,2,1")
+        userText = "Oui c'est un ami enfant";
+        botText = "D'accord, et quels sont ces centres d'interets?";
+        break;
+      default:
+        setPath(path + ",2")
+        userText = "Non c'est une connaissance qui n'est ni un ami et qui ne fait pas partie de ma famille";
+        botText = "D'accord, et quels sont ces centres d'interets?";
+        break;
+    }
+    setTimeout(() => {
+      addMessage(userText, user);
+    }, "500");
+
+    setTimeout(() => {
+      addMessage(botText, bot);
+    }, "2000");
+  }
+
+  const notFriend = () => {
+    let userText = "Non c'est une connaissance qui n'est ni un ami et qui ne fait pas partie de ma famille";
+    let botText = "D'accord, et quels sont ces centres d'interets?";
+    const friendButton = "friendButton"
+    // const adoButton = "adoButton";
+    hideButton(friendButton);
+    // showButton(firendButton);
+
+    setPath(path + ",2")
+    setAffection("Autre")
     setTimeout(() => {
       addMessage(userText, user);
     }, "500");
@@ -317,8 +437,8 @@ const Form = () => {
           <button id='famille' className='familleButton' onClick={famille}>Oui</button>
           <button id='not-famille' className='familleButton' onClick={notFamille}>Non</button>
 
-          {/* <button id='collegue' className='collegueButton' onClick={collegue}>Oui</button>
-          <button id='not-collegue' className='collegueButton' onClick={notCollegue}>Non</button> */}
+          <button id='friend' className='friendButton' onClick={friend}>Oui</button>
+          <button id='not-friend' className='friendButton' onClick={notFriend}>Non</button>
         </div>
       </div>
     </>
