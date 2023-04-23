@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react'
-import "../Css/form.css"
-import TypeMessage from "./present";
+import { useState, useEffect } from 'react';
+import "../Css/form.css";
+import Hobbies from './Hobbies';
+import Budget from './Budget';
+// import TypeMessage from "./present";
 
 import Axios from 'axios';
 
@@ -10,7 +12,7 @@ const Form = () => {
   const [gender, setGender] = useState('');
   const [age, setAge] = useState('');
   const [affection, setAffection] = useState('');
-  const [hobbies, sethobbies] = useState([]);
+  const [hobbies, setHobbies] = useState([]);
   const [budget, setBudget] = useState('');
   const [path, setPath] = useState('');
 
@@ -27,9 +29,12 @@ const Form = () => {
 
   const [userText, setUserText] = useState("");
   const [botText, setBotText] = useState("");
-
+  // const [chatFooter, setChatFooter] = useState(false);
+  
   const bot = "bot";
   const user = "user";
+  const chatFooter = document.querySelector('.chat-footer');
+  const chatHobies = document.querySelector('.hobbies-container')
 
 
   useEffect(() =>  {
@@ -42,19 +47,29 @@ const Form = () => {
     }, 1000);
     setTimeout(() => {
       setSecondMessage("C'est très simple tu à juste à suivre mes indications et à répondre aux questions");
-    }, 1000);
+    }, 2000);
     setTimeout(() => {
       setThirdMessage("Tout d'abord, la personne à qui tu veux faire un cadeau est-elle une fille ?");
-    }, 1000);
+    }, 3000);
+    const chatFooter = document.querySelector('.chat-footer');
+    if (chatFooter) {
+      setTimeout(() => {
+        chatFooter.style.display = "flex";
+      }, "4000")
+    }
   }, []);
 
     
     
     const chat = document.getElementById('chat');
-    const bubbleChat = document.querySelector('.chat-box');
-    const chatFooter = document.querySelector('.chat-footer');
+    const chatContainer = document.querySelector(".chat-container")
+    // const bubbleChat = document.querySelector('.chat-box');
 
-
+    // const scroll = () => {
+    //   setTimeout(() => {
+    //     chatContainer.scrollTop = chatContainer.scrollHeight;
+    //   }, "2500")
+    // }
 
     
   
@@ -67,8 +82,15 @@ const Form = () => {
     message.classList.add('animate__animated', 'animate__bounceIn');
     
     // Descendre la barre de défilement automatiquement
-    bubbleChat.scrollTop = bubbleChat.scrollHeight;
-  }
+  const timer = setInterval(() => {
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+  }, 1);
+
+  setTimeout(() => {
+    clearInterval(timer);
+}, 2000);
+}
+
   
   const hideButton = (classe) => {
     // Récupération de tous les éléments ayant la même classe
@@ -90,6 +112,14 @@ const Form = () => {
     }
   }
 
+  const hideChatFooter = () => {
+    // const chatFooter= document.querySelector(".chat-footer");
+    chatFooter.style.display = "none";
+    setTimeout(() => {
+      chatFooter.style.display = "flex"
+    }, "3000");
+  }
+
 
   const woman = () => {
     let userText = "Oui c'est une fille";
@@ -97,6 +127,7 @@ const Form = () => {
     const genderButton = "genderButton";
     const adultButton = "adultButton";
 
+    hideChatFooter();
     hideButton(genderButton)
     showButton(adultButton)
     
@@ -119,8 +150,10 @@ const Form = () => {
     const genderButton = "genderButton";
     const adultButton = "adultButton";
 
-    hideButton(genderButton)
+    hideChatFooter();
     showButton(adultButton)
+    hideButton(genderButton)
+
 
     
     setPath('0');
@@ -141,8 +174,12 @@ const Form = () => {
     let botText = "";
     const adultButton = "adultButton";
     const familleButton = "familleButton";
+
+    hideChatFooter();
     hideButton(adultButton)
     showButton(familleButton)
+
+
     console.log(path)
     setAge('Adulte');
     if (path === "1") {
@@ -168,8 +205,11 @@ const Form = () => {
     let botText = "";
     const adultButton = "adultButton";
     const adoButton = "adoButton"
+
+    hideChatFooter();
     hideButton(adultButton)
     showButton(adoButton)
+
     
     if (path === "1") {
       userText = "Non elle n'est pas une adulte";
@@ -194,8 +234,10 @@ const Form = () => {
     const familleButton = "familleButton"
     setAge('Ado');
 
+    hideChatFooter();
     hideButton(adoButton)
     showButton(familleButton)
+
     
     if (path === "1") {
       setPath('1,1');
@@ -226,6 +268,7 @@ const Form = () => {
 
     setAge('enfant');
 
+    hideChatFooter();
     hideButton(adoButton)
     showButton(familleButton)
 
@@ -255,6 +298,10 @@ const Form = () => {
     let botText = "";
     const familleButton = "familleButton";
     // const familleButton = "familleButton"
+    chatFooter.style.display = "none";
+    setTimeout(() => {
+      chatHobies.style.display = "flex";
+    }, "3000")
     hideButton(familleButton)
     // showButton(familleButton)
     console.log(path)
@@ -264,32 +311,32 @@ const Form = () => {
       case "1,0" :
         setPath("1,0,0")
         userText = "Oui c'est une adulte membre de ma famille";
-        botText = "D'accord, et quels sont ces centres d'interets?";
+        botText = "Très bien, ce'est noté. Maintenant, veuillez sélectionner 5 centres d'intérêts / hobbies de cette personne dans cette liste:)";
         break;
       case "1,1":
         setPath("1,1,0")
         userText = "Oui c'est une ado membre de ma famille";
-        botText = "D'accord, et quels sont ces centres d'interets?";
+        botText = "Très bien, ce'est noté. Maintenant, veuillez sélectionner 5 centres d'intérêts / hobbies de cette personne :)";
         break;
       case "1,2":
         setPath("1,2,0")
         userText = "Oui c'est une enfant membre de ma famille";
-        botText = "D'accord, et quels sont ces centres d'interets?";
+        botText = "Très bien, ce'est noté. Maintenant, veuillez sélectionner 5 centres d'intérêts / hobbies de cette personne :)";
         break;
       case "0,0":
         setPath("1,0,0")
         userText = "Oui c'est un adulte membre de ma famille";
-        botText = "D'accord, et quels sont ces centres d'interets?";
+        botText = "Très bien, ce'est noté. Maintenant, veuillez sélectionner 5 centres d'intérêts / hobbies de cette personne :)";
         break;
       case "0,1":
         setPath("1,1,0")
         userText = "Oui c'est un ado membre de ma famille";
-        botText = "D'accord, et quels sont ces centres d'interets?";
+        botText = "Très bien, ce'est noté. Maintenant, veuillez sélectionner 5 centres d'intérêts / hobbies de cette personne :)";
         break;
       case "0,2":
         setPath("1,2,0")
         userText = "Oui c'est un enfant membre de ma famille";
-        botText = "D'accord, et quels sont ces centres d'interets?";
+        botText = "Très bien, ce'est noté. Maintenant, veuillez sélectionner 5 centres d'intérêts / hobbies de cette personne :)";
         break;
       default:
         break;
@@ -308,6 +355,8 @@ const Form = () => {
     let botText = "D'accord, et est-ce un ami?";
     const familleButton = "familleButton"
     const friendButton = "friendButton";
+
+    hideChatFooter();
     hideButton(familleButton);
     showButton(friendButton);
 
@@ -326,7 +375,12 @@ const Form = () => {
     let botText = "";
     const familleButton = "familleButton";
     // const familleButton = "familleButton"
-    hideButton(familleButton)
+    chatFooter.style.display = "none";
+    setTimeout(() => {
+      chatHobies.style.display = "flex";
+    }, "3000")
+    // hideChatFooter();
+    // hideButton(familleButton)
     // showButton(familleButton)
     console.log(path)
     setAffection("Friend")
@@ -335,37 +389,37 @@ const Form = () => {
       case "1,0" :
         setPath("1,0,1")
         userText = "Oui c'est une amie adulte";
-        botText = "D'accord, et quels sont ces centres d'interets?";
+        botText = "Très bien, ce'est noté. Maintenant, veuillez sélectionner 5 centres d'intérêts / hobbies de cette personne :)";
         break;
       case "1,1":
         setPath("1,1,1")
         userText = "Oui c'est une amie ado";
-        botText = "D'accord, et quels sont ces centres d'interets?";
+        botText = "Très bien, ce'est noté. Maintenant, veuillez sélectionner 5 centres d'intérêts / hobbies de cette personne :)";
         break;
       case "1,2":
         setPath("1,2,1")
         userText = "Oui c'est une amie enfant";
-        botText = "D'accord, et quels sont ces centres d'interets?";
+        botText = "Très bien, ce'est noté. Maintenant, veuillez sélectionner 5 centres d'intérêts / hobbies de cette personne :)";
         break;
       case "0,0":
         setPath("1,0,1")
         userText = "Oui c'est un ami adulte";
-        botText = "D'accord, et quels sont ces centres d'interets?";
+        botText = "Très bien, ce'est noté. Maintenant, veuillez sélectionner 5 centres d'intérêts / hobbies de cette personne :)";
         break;
       case "0,1":
         setPath("1,1,1")
         userText = "Oui c'est un ami ado";
-        botText = "D'accord, et quels sont ces centres d'interets?";
+        botText = "Très bien, ce'est noté. Maintenant, veuillez sélectionner 5 centres d'intérêts / hobbies de cette personne :)";
         break;
       case "0,2":
         setPath("1,2,1")
         userText = "Oui c'est un ami enfant";
-        botText = "D'accord, et quels sont ces centres d'interets?";
+        botText = "Très bien, ce'est noté. Maintenant, veuillez sélectionner 5 centres d'intérêts / hobbies de cette personne :)";
         break;
       default:
         setPath(path + ",2")
         userText = "Non c'est une connaissance qui n'est ni un ami et qui ne fait pas partie de ma famille";
-        botText = "D'accord, et quels sont ces centres d'interets?";
+        botText = "Très bien, ce'est noté. Maintenant, veuillez sélectionner 5 centres d'intérêts / hobbies de cette personne :)";
         break;
     }
     setTimeout(() => {
@@ -379,10 +433,15 @@ const Form = () => {
 
   const notFriend = () => {
     let userText = "Non c'est une connaissance qui n'est ni un ami et qui ne fait pas partie de ma famille";
-    let botText = "D'accord, et quels sont ces centres d'interets?";
+    let botText = "Très bien, ce'est noté. Maintenant, veuillez sélectionner 5 centres d'intérêts / hobbies de cette personne :)?";
     const friendButton = "friendButton"
     // const adoButton = "adoButton";
-    hideButton(friendButton);
+    chatFooter.style.display = "none";
+
+    setTimeout(() => {
+      chatHobies.style.display = "flex";
+    }, "3000")
+    // hideButton(friendButton);s
     // showButton(firendButton);
 
     setPath(path + ",2")
@@ -403,11 +462,11 @@ const Form = () => {
 
   return (
     <>
+      {/* <a href="http://localhost:3000/hobbies">hobbies</a> */}
       <div className="chat-container">
         <div className="chat-header">
           <h2>Ruby</h2>
         </div>
-        <div className="chat-box">
           <div className="chat" id="chat">
             <div className="bot-message fade-in">
             {firstMessage && <p>{firstMessage}</p>}             
@@ -423,10 +482,10 @@ const Form = () => {
             {thirdMessage && <p>{thirdMessage}</p>}             
             </div>
           </div>
-        </div>
         <div className="chat-footer">
+          
           <button id='woman' className='genderButton' onClick={woman}>Oui</button>
-          <button id='man' className='genderButton' onClick={man}  >Non</button>
+          <button id='man' className='genderButton' onClick={man}>Non</button>
 
           <button id='adult' className='adultButton' onClick={adult}>Oui</button>
           <button id='not-adult' className='adultButton' onClick={notAdult}>Non</button>
@@ -439,8 +498,11 @@ const Form = () => {
 
           <button id='friend' className='friendButton' onClick={friend}>Oui</button>
           <button id='not-friend' className='friendButton' onClick={notFriend}>Non</button>
+
         </div>
+        <Hobbies hobbies={hobbies} setHobbies={setHobbies}/>
       </div>
+      {/* <Budget /> */}
     </>
   );
   
